@@ -1,18 +1,18 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
-const {isAdmin} = require('./route_security')
+const {Admin} = require('../db/models')
+//const {isAdmin} = require('./route_security')
 module.exports = router
 
-router.get('/', isAdmin, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
-    const users = await User.findAll({
+    const admins = await Admin.findAll({
       ///JUST AN EXAMPLE
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
       attributes: ['username', 'password']
     })
-    res.json(users)
+    res.json(admins)
   } catch (err) {
     next(err)
   }

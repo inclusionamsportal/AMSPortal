@@ -2,9 +2,9 @@
 
 const {expect} = require('chai')
 const db = require('../index')
-const Admin = db.model('admin')
+const Admins = db.model('admins')
 
-describe('Admin model', () => {
+describe('Admins model', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
@@ -14,7 +14,7 @@ describe('Admin model', () => {
       let cody
 
       beforeEach(async () => {
-        cody = await Admin.create({
+        cody = await Admins.create({
           email: 'cody@puppybook.com',
           password: 'bones'
         })
