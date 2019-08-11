@@ -1,7 +1,6 @@
 const Admins = require('./admins')
 const Applications = require('./applications')
 const Comments = require('./comments')
-const FormFields = require('./formFields')
 const Forms = require('./forms')
 
 /**
@@ -11,16 +10,16 @@ const Forms = require('./forms')
  *    BlogPost.belongsTo(User)
  */
 
-FormFields.belongsTo(forms)
-Forms.hasMany(FormFields)
-Forms.hasOne(Applications)
-Applications.hasOne(Forms)
+Forms.hasMany(Applications)
+Applications.belongsTo(Forms)
 
 Admins.hasMany(Comments)
-Comments.belongsTo(Admins)
+Comments.belongsTo(Admins, {foreignKey: 'adminName', targetKey: 'username'})
 
-Applications.hasMany(Comments)
-Comments.belongsTo(Applications)
+Applications.belongsTo(Comments, {
+  foreignKey: 'applicantName',
+  targetKey: 'applicantName'
+})
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -29,5 +28,8 @@ Comments.belongsTo(Applications)
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User
+  Forms,
+  Admins,
+  Comments,
+  Applications
 }

@@ -2,6 +2,11 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Forms = db.define('forms', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   title: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -10,7 +15,7 @@ const Forms = db.define('forms', {
     }
   },
   isActive: {
-    type: Sequelize.ENUM('NEW', 'NOT ACTIVE'),
+    type: Sequelize.BOOLEAN(),
     allowNull: false
   },
   deadline: {

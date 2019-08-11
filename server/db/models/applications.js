@@ -2,9 +2,15 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Applications = db.define('applications', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   applicantName: {
     type: Sequelize.STRING,
     allowNull: false,
+    unique: true,
     validate: {
       notEmpty: true
     }
@@ -15,6 +21,9 @@ const Applications = db.define('applications', {
   },
   applicantEmail: {
     type: Sequelize.STRING
+  },
+  applicationBody: {
+    type: Sequelize.TEXT
   }
 })
 

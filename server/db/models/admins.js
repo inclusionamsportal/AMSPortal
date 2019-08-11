@@ -3,6 +3,11 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Admins = db.define('admins', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   username: {
     type: Sequelize.STRING,
     unique: true,
