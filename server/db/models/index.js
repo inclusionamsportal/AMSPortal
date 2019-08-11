@@ -1,4 +1,7 @@
-const User = require('./user')
+const Admins = require('./admins')
+const Applications = require('./applications')
+const Comments = require('./comments')
+const Forms = require('./forms')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -7,6 +10,17 @@ const User = require('./user')
  *    BlogPost.belongsTo(User)
  */
 
+Forms.hasMany(Applications)
+Applications.belongsTo(Forms)
+
+Admins.hasMany(Comments)
+Comments.belongsTo(Admins, {foreignKey: 'adminName', targetKey: 'username'})
+
+Applications.belongsTo(Comments, {
+  foreignKey: 'applicantName',
+  targetKey: 'applicantName'
+})
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
@@ -14,5 +28,8 @@ const User = require('./user')
  * instead of: const User = require('../db/models/user')
  */
 module.exports = {
-  User
+  Forms,
+  Admins,
+  Comments,
+  Applications
 }
