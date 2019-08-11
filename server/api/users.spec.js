@@ -4,25 +4,25 @@ const {expect} = require('chai')
 const request = require('supertest')
 const db = require('../db')
 const app = require('../index')
-const User = db.model('user')
+const Admins = db.model('admins')
 
-describe('User routes', () => {
+describe('Admins routes', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
 
-  describe('/api/users/', () => {
+  describe('/api/admins/', () => {
     const codysEmail = 'cody@puppybook.com'
 
     beforeEach(() => {
-      return User.create({
+      return Admins.create({
         email: codysEmail
       })
     })
 
-    it('GET /api/users', async () => {
+    it('GET /api/admins', async () => {
       const res = await request(app)
-        .get('/api/users')
+        .get('/api/admins')
         .expect(200)
 
       expect(res.body).to.be.an('array')
