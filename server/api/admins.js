@@ -18,6 +18,17 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    const foundAdmin = await Admins.findByPk(id)
+    res.json(foundAdmin)
+  } catch (err) {
+    res.status(err)
+    next(err)
+  }
+})
+
 // router.put('/', isAdminOrUser, async (req, res, next) => {
 //   try {
 //     const user = req.body
