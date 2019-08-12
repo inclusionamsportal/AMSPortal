@@ -1,13 +1,13 @@
-import React from 'react';
-import FieldsPanel from './FieldsPanel';
-import EditPanel from './EditPanel';
-import styled from 'styled-components';
+import React from 'react'
+import FieldsPanel from './FieldsPanel'
+import EditPanel from './EditPanel'
+import styled from 'styled-components'
 import {
   white,
   whiteSmoke,
   secondaryColor,
   secondaryColorHover
-} from '../../shared/styles';
+} from '../../shared/styles'
 
 const Container = styled.aside`
   display: flex;
@@ -15,7 +15,7 @@ const Container = styled.aside`
   width: 30vw;
   height: 100vh;
   border-right: 1px solid ${whiteSmoke};
-`;
+`
 
 const Button = styled.button`
   border: 1px solid ${secondaryColor};
@@ -31,7 +31,7 @@ const Button = styled.button`
     background-color: ${secondaryColorHover};
     border: 1px solid ${secondaryColorHover};
   }
-`;
+`
 
 const Exit = styled.div`
   display: flex;
@@ -58,12 +58,12 @@ const Exit = styled.div`
   & svg {
     transition: all 0.2s ease-out;
   }
-`;
+`
 
 const ButtonWrapper = styled.div`
   margin-top: auto;
   padding: 0 1.4rem;
-`;
+`
 
 const BuildPanel = props => {
   const {
@@ -72,7 +72,7 @@ const BuildPanel = props => {
     handleEditFieldChange,
     currentlyEditedField,
     handleFormTitleChange
-  } = props;
+  } = props
 
   return (
     <Container>
@@ -98,11 +98,11 @@ const BuildPanel = props => {
       />
       <ButtonWrapper>
         <Button type="button" onClick={handleFormSave}>
-          Publish Form
+          Save Form
         </Button>
       </ButtonWrapper>
     </Container>
-  );
-};
+  )
+}
 
-export default BuildPanel;
+export default BuildPanel
