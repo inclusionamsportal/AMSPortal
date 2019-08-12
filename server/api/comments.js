@@ -11,3 +11,14 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    const foundComment = await Comments.findById(id)
+    res.json(foundComment)
+  } catch (err) {
+    res.status(err)
+    next(err)
+  }
+})

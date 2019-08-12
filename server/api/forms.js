@@ -11,3 +11,14 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    const foundForm = await Forms.findById(id)
+    res.json(foundForm)
+  } catch (err) {
+    res.status(err)
+    next(err)
+  }
+})
