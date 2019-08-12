@@ -11,7 +11,10 @@ const Forms = require('./forms')
  */
 
 Forms.hasMany(Applications)
-Applications.belongsTo(Forms)
+Applications.belongsTo(Forms, {
+  foreignKey: 'formId',
+  targetKey: 'id'
+})
 
 Admins.hasMany(Comments)
 Comments.belongsTo(Admins, {foreignKey: 'adminName', targetKey: 'username'})
