@@ -5,26 +5,25 @@ import {DragDropContext, Droppable} from 'react-beautiful-dnd'
 import isRequiredField from '../../utils/isRequiredField'
 import reorderList from '../../utils/reorderList'
 import getType from '../../utils/getType'
-// import trashCan from '../../assets/trash-can.svg';
 import styled from 'styled-components'
 import {headingColor, red} from '../../shared/styles'
 
 const initialFieldsState = [
   {
     id: 'name',
-    name: 'applicant_name',
+    name: 'applicantName',
     label: 'Name',
     type: 'text'
   },
   {
     id: 'email',
-    name: 'applicant_email',
+    name: 'applicantEmail',
     label: 'Email',
     type: 'email'
   },
   {
     id: 'body',
-    name: 'applicant_body',
+    name: 'applicantBody',
     label: 'Body',
     type: 'textarea'
   }
