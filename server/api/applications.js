@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id
-    const foundApplication = await Applications.findById(id)
+    const foundApplication = await Applications.findByPk(id)
     res.json(foundApplication)
   } catch (err) {
     res.status(err)

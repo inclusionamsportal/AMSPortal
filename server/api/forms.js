@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id
-    const foundForm = await Forms.findById(id)
+    const foundForm = await Forms.findByPk(id)
     res.json(foundForm)
   } catch (err) {
     res.status(err)

@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id
-    const foundComment = await Comments.findById(id)
+    const foundComment = await Comments.findByPk(id)
     res.json(foundComment)
   } catch (err) {
     res.status(err)
