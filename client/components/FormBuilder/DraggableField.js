@@ -143,7 +143,7 @@ class DraggableField extends Component {
                         </TrashCan>
                       )}
                     </LabelEditWrapper>
-                    {type === 'DraggableField' ? (
+                    {type === 'textarea' ? (
                       <TextAreaField name={name} disabled rows={6} />
                     ) : (
                       <InputField type={type} name={name} disabled />
