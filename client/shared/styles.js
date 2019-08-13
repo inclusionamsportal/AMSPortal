@@ -8,6 +8,8 @@ export const lightGray = '#dcdcdc'
 export const headingColor = '#333'
 export const red = '#c72525'
 export const brandyRose = '#bb7c75'
+export const green = '#44a23f'
+export const greenHover = '#77a274'
 
 export const SectionHeading = styled.h2`
   color: ${headingColor};
