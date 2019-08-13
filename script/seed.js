@@ -16,18 +16,18 @@ async function seed() {
     {
       applicantName: 'Philip J. Fry',
       commentBody: ' This person is highly qualified.',
-      adminName: 'nibbler'
+      adminId: 1
     },
     {
       applicantName: 'Turanga Leela',
       commentBody: 'This person is very impressive',
 
-      adminName: 'nibbler'
+      adminId: 1
     },
     {
       applicantName: 'Doctor Zoidberg',
       commentBody: "I'm not too sure about this person.",
-      adminName: 'nibbler'
+      adminId: 1
     }
   ]
 

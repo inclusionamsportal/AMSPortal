@@ -17,7 +17,7 @@ Applications.belongsTo(Forms, {
 })
 
 Admins.hasMany(Comments)
-Comments.belongsTo(Admins, {foreignKey: 'adminName', targetKey: 'username'})
+Comments.belongsTo(Admins, {foreignKey: 'adminId', targetKey: 'id'})
 
 Applications.belongsTo(Comments, {
   foreignKey: 'applicantName',
