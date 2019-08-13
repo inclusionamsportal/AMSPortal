@@ -19,13 +19,13 @@ const Button = styled.button`
   color: ${white};
   font-size: 1rem;
 
-  &:hover{
+  &:hover {
     background-color: ${greenHover};
     border-color: ${greenHover};
   }
 
   &:disabled {
-    border: 1px solid ${lightGray}
+    border: 1px solid ${lightGray};
     background-color: ${white};
     color: gray;
   }
@@ -84,8 +84,7 @@ class FormUpdateTools extends Component {
     return (
       <Tools>
         <Field>
-          Set Deadline:
-          <input
+          Set Deadline:<input
             type="date"
             name="deadline"
             value={deadline}
