@@ -41,3 +41,17 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/:id', async (req, res, next) => {
+  if (req.Admins.isAdmin === false) {
+    res.send(404, 'You do not have access ')
+  }
+  const id = req.params.id
+  try {
+    const form = await Forms.findById(id)
+    const updatedForm = await form.update({...req.body})
+    res.send(updatedForm)
+  } catch (err) {
+    next(err)
+  }
+})

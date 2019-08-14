@@ -34,3 +34,17 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/:id', async (req, res, next) => {
+  if (req.Admins.isAdmin === false) {
+    res.send(404, 'You do not have access ')
+  }
+  const id = req.params.id
+  try {
+    const application = await Applications.findById(id)
+    const updatedApplication = await application.update({...req.body})
+    res.send(updatedApplication)
+  } catch (err) {
+    next(err)
+  }
+})
