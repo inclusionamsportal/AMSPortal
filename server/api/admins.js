@@ -5,13 +5,7 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const admins = await Admins.findAll({
-      ///JUST AN EXAMPLE
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['username', 'password']
-    })
+    const admins = await Admins.findAll({attributes: ['username', 'password']})
     res.json(admins)
   } catch (err) {
     next(err)
