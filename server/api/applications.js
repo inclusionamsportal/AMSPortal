@@ -44,7 +44,7 @@ router.put('/:id', async (req, res, next) => {
   }
   try {
     const id = req.params.id
-    const application = await Applications.findById(id)
+    const application = await Applications.findByPk(id)
     const updatedApplication = await application.update({...req.body})
     res.send(updatedApplication)
   } catch (err) {

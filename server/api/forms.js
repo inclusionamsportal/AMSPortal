@@ -49,7 +49,7 @@ router.put('/:id', async (req, res, next) => {
 
   try {
     const id = req.params.id
-    const form = await Forms.findById(id)
+    const form = await Forms.findByPk(id)
     const updatedForm = await form.update({...req.body})
     res.send(updatedForm)
   } catch (err) {
