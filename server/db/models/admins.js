@@ -8,10 +8,12 @@ const Admins = db.define('admins', {
     primaryKey: true,
     autoIncrement: true
   },
+  googleId: {
+    type: Sequelize.STRING
+  },
   username: {
     type: Sequelize.STRING,
-    unique: true,
-    allowNull: false
+    unique: true
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
@@ -33,9 +35,6 @@ const Admins = db.define('admins', {
       return () => this.getDataValue('salt')
     }
   }
-  // googleId: {
-  //   type: Sequelize.STRING
-  // }
 })
 
 module.exports = Admins

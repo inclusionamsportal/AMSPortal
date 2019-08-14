@@ -4,6 +4,8 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome} from './components'
 import FormBuilder from './components/FormBuilder/FormBuilder'
+import ManageForms from './components/ManageForms'
+import ApplicantHome from './components/ApplicantHome'
 import {me} from './store'
 
 /**
@@ -22,16 +24,20 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        {/* Below routes will be removed - should only be accessed by Admin */}
+        <Route path="/manage-forms" component={ManageForms} />
+        <Route path="/create-form" component={FormBuilder} />
 
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
-            <Route path="/create-form" component={FormBuilder} />
+            {/* <Route path="/create-form" component={FormBuilder} /> */}
+            {/* <Route path="/manage-forms" component={ManageForms} /> */}
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        <Route component={ApplicantHome} />
       </Switch>
     )
   }
@@ -44,7 +50,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    userID: state.user.id
   }
 }
 
