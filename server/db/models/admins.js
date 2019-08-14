@@ -15,10 +15,6 @@ const Admins = db.define('admins', {
     type: Sequelize.STRING,
     unique: true
   },
-  isAdmin: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: true
-  },
   password: {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
