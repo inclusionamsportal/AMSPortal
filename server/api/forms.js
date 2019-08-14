@@ -17,9 +17,6 @@ router.get('/', async (req, res, next) => {
 
 //Display form by ID for Admins.
 router.get('/:id', async (req, res, next) => {
-  if (req.Admins.isAdmin === false) {
-    res.send(404, 'You do not have access ')
-  }
   try {
     const id = req.params.id
     const foundForm = await Forms.findByPk(id)
@@ -31,9 +28,6 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  if (req.Admins.isAdmin === false) {
-    res.send(404, 'You do not have access.')
-  }
   try {
     await Forms.create({...req.body})
     res.status(201).send('Form added.')
@@ -43,9 +37,6 @@ router.post('/', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
-  if (req.Admins.isAdmin === false) {
-    res.send(404, 'You do not have access ')
-  }
   const id = req.params.id
   try {
     const form = await Forms.findById(id)
@@ -55,3 +46,7 @@ router.put('/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+// if (req.Admins.isAdmin === false) {
+//   res.send(404, 'You do not have access ')
+// }
