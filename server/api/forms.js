@@ -17,6 +17,9 @@ router.get('/', async (req, res, next) => {
 
 //Display form by ID for Admins.
 router.get('/:id', async (req, res, next) => {
+  if (!req.Admin) {
+    res.send(404, 'You do not have access')
+  }
   try {
     const id = req.params.id
     const foundForm = await Forms.findByPk(id)
@@ -28,6 +31,9 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
+  if (!req.Admin) {
+    res.send(404, 'You do not have access')
+  }
   try {
     await Forms.create({...req.body})
     res.status(201).send('Form added.')
@@ -37,8 +43,12 @@ router.post('/', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
-  const id = req.params.id
+  if (!req.Admin) {
+    res.send(404, 'You do not have access')
+  }
+
   try {
+    const id = req.params.id
     const form = await Forms.findById(id)
     const updatedForm = await form.update({...req.body})
     res.send(updatedForm)
@@ -47,6 +57,19 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-// if (req.Admins.isAdmin === false) {
-//   res.send(404, 'You do not have access ')
-// }
+router.delete('/:id', async (req, res, next) => {
+  if (!req.Admin) {
+    res.send(404, 'You do not have access')
+  }
+  try {
+    const id = req.params.id
+    const deleted = await Forms.destroy({
+      where: {
+        id: id
+      }
+    })
+    res.json(`Form ${id} Deleted`)
+  } catch (err) {
+    next(err)
+  }
+})

@@ -4,6 +4,9 @@ const {Applications} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
+  if (!req.admin) {
+    res.send(404, 'You do not have access')
+  }
   try {
     const applications = await Applications.findAll()
     res.json(applications)
@@ -13,6 +16,9 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:id', async (req, res, next) => {
+  if (!req.admin) {
+    res.send(404, 'You do not have access')
+  }
   try {
     const id = req.params.id
     const foundApplication = await Applications.findByPk(id)
@@ -33,8 +39,11 @@ router.post('/', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
-  const id = req.params.id
+  if (!req.admin) {
+    res.send(404, 'You do not have access')
+  }
   try {
+    const id = req.params.id
     const application = await Applications.findById(id)
     const updatedApplication = await application.update({...req.body})
     res.send(updatedApplication)
@@ -43,6 +52,19 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-// if (req.Admins.isAdmin === false) {
-//   res.send(404, 'You do not have access ')
-// }
+router.delete('/:id', async (req, res, next) => {
+  if (!req.Admin) {
+    res.send(404, 'You do not have access')
+  }
+  try {
+    const id = req.params.id
+    const deleted = await Applications.destroy({
+      where: {
+        id: id
+      }
+    })
+    res.json(`Application ${id} Deleted`)
+  } catch (err) {
+    next(err)
+  }
+})
