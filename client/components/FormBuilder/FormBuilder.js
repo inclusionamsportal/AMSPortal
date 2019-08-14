@@ -6,7 +6,7 @@ import isRequiredField from '../../utils/isRequiredField'
 import reorderList from '../../utils/reorderList'
 import getType from '../../utils/getType'
 import styled from 'styled-components'
-import {headingColor, red} from '../../shared/styles'
+import {red} from '../../shared/styles'
 
 const initialFieldsState = [
   {
@@ -48,7 +48,6 @@ const FormContainer = styled.div`
 `
 
 const FormTitle = styled.h1`
-  color: ${headingColor};
   margin: 0;
   height: 50px;
 `
