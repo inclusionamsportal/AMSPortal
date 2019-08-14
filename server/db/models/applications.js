@@ -10,7 +10,7 @@ const Applications = db.define('applications', {
   applicantName: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
+    unique: true, //an applicant can only apply once
     validate: {
       notEmpty: true
     }

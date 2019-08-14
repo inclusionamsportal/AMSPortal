@@ -22,3 +22,15 @@ router.get('/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+//find all the comments for a certain applicant/application
+router.get('/:applicantName', async (req, res, next) => {
+  try {
+    const applicantName = req.params.applicantName
+    const appComment = await Comments.findAllByPk(applicantName)
+    res.json(appComment)
+  } catch (err) {
+    res.status(err)
+    next(err)
+  }
+})

@@ -29,23 +29,24 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-// router.put('/', isAdminOrUser, async (req, res, next) => {
-//   try {
-//     const user = req.body
-//     const updatedUser = await User.update(
-//       {...user},
-//       {
-//         where: {
-//           id: user.id,
-//           email: user.email
-//         }
-//       }
-//     )
-//     res.status(204)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+//PUT for when updating account information for admins
+router.put('/', async (req, res, next) => {
+  try {
+    const admin = req.body
+    const updateAdmin = await Admins.update(
+      {...admin},
+      {
+        where: {
+          username: admin.username,
+          password: admin.password
+        }
+      }
+    )
+    res.status(204)
+  } catch (error) {
+    next(error)
+  }
+})
 
 // // admin authentication middleware - if the person is an admin, let them view all users, if not, redirect to our homepage - if someone is not an admin, they should only be able to see their own user information
 // function isAdmin(req, res, next) {
