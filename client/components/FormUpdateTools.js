@@ -26,7 +26,7 @@ const Button = styled.button`
 
   &:disabled {
     border: 1px solid ${lightGray};
-    background-color: ${white};
+    background-color: ${lightGray};
     color: gray;
   }
 `
