@@ -99,7 +99,7 @@ class DraggableField extends Component {
               >
                 {' '}
                 {label}
-                {type === 'DraggableField' ? (
+                {type === 'textarea' ? (
                   <TextAreaField disabled />
                 ) : (
                   <InputField disabled type={type} name={name} />
