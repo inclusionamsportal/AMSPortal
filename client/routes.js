@@ -6,6 +6,7 @@ import {Login, Signup, UserHome} from './components'
 import FormBuilder from './components/FormBuilder/FormBuilder'
 import ManageForms from './components/ManageForms'
 import ApplicantHome from './components/ApplicantHome'
+import Application from './components/Application'
 import {me} from './store'
 
 /**
@@ -27,6 +28,7 @@ class Routes extends Component {
         {/* Below routes will be removed - should only be accessed by Admin */}
         <Route path="/manage-forms" component={ManageForms} />
         <Route path="/create-form" component={FormBuilder} />
+        <Route path="/application/:id" component={Application} />
 
         {isLoggedIn && (
           <Switch>
