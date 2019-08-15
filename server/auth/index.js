@@ -3,8 +3,9 @@ const Admins = require('../db/models/admins')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
+  const {email: username} = req.body
   try {
-    const admin = await Admins.findOne({where: {email: req.body.email}})
+    const admin = await Admins.findOne({where: {username: username}})
     if (!admin) {
       console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')
@@ -20,8 +21,14 @@ router.post('/login', async (req, res, next) => {
 })
 
 router.post('/signup', async (req, res, next) => {
+  const {email: username, password} = req.body
+  const user = {
+    username,
+    password
+  }
+
   try {
-    const admin = await Admins.create(req.body)
+    const admin = await Admins.create(user)
     req.login(admin, err => (err ? next(err) : res.json(admin)))
   } catch (err) {
     if (err.name === 'SequelizeUniqueConstraintError') {
