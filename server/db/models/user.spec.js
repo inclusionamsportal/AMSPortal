@@ -15,7 +15,7 @@ describe('Admins model', () => {
 
       beforeEach(async () => {
         cody = await Admins.create({
-          email: 'cody@puppybook.com',
+          username: 'cody@puppybook.com',
           password: 'bones'
         })
       })

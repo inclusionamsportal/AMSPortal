@@ -4,12 +4,12 @@ module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
-    const admin = await Admins.findOne({where: {email: req.body.email}})
+    const admin = await Admins.findOne({where: {username: req.body.username}})
     if (!admin) {
-      console.log('No such user found:', req.body.email)
+      console.log('No such user found:', req.body.username)
       res.status(401).send('Wrong username and/or password')
     } else if (!admin.correctPassword(req.body.password)) {
-      console.log('Incorrect password for admin:', req.body.email)
+      console.log('Incorrect password for admin:', req.body.username)
       res.status(401).send('Wrong username and/or password')
     } else {
       req.login(admin, err => (err ? next(err) : res.json(admin)))
