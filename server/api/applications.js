@@ -4,11 +4,13 @@ const {Applications} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
-  if (!req.admin) {
+  if (!req.user) {
     res.send(404, 'You do not have access')
   }
   try {
-    const applications = await Applications.findAll()
+    const applications = await Applications.findAll({
+      order: [['id', 'DESC']]
+    })
     res.json(applications)
   } catch (err) {
     next(err)
@@ -16,7 +18,7 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:id', async (req, res, next) => {
-  if (!req.admin) {
+  if (!req.user) {
     res.send(404, 'You do not have access')
   }
   try {
@@ -39,7 +41,7 @@ router.post('/', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
-  if (!req.admin) {
+  if (!req.user) {
     res.send(404, 'You do not have access')
   }
   try {
@@ -53,7 +55,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 router.delete('/:id', async (req, res, next) => {
-  if (!req.Admin) {
+  if (!req.user) {
     res.send(404, 'You do not have access')
   }
   try {
