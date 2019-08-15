@@ -7,11 +7,11 @@ import FormBuilder from './components/FormBuilder/FormBuilder'
 import ManageForms from './components/ManageForms'
 import ApplicantHome from './components/ApplicantHome'
 import Application from './components/Application'
+import ReviewPage from './components/ReviewPage'
+import ReviewApplicant from './components/ReviewApplicant'
+import Success from './components/Success'
 import {me} from './store'
 
-/**
- * COMPONENT
- */
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
@@ -22,20 +22,17 @@ class Routes extends Component {
 
     return (
       <Switch>
-        {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        {/* Below routes will be removed - should only be accessed by Admin */}
-        <Route path="/manage-forms" component={ManageForms} />
-        <Route path="/create-form" component={FormBuilder} />
         <Route path="/application/:id" component={Application} />
+        <Route path="/success/" exact component={Success} />
 
         {isLoggedIn && (
           <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-            {/* <Route path="/create-form" component={FormBuilder} /> */}
-            {/* <Route path="/manage-forms" component={ManageForms} /> */}
+            <Route path="/manage-forms" component={ManageForms} />
+            <Route path="/create-form" component={FormBuilder} />
+            <Route path="/review" exact component={ReviewPage} />
+            <Route path="/review/:id" exact component={ReviewApplicant} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
