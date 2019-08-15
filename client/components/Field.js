@@ -34,15 +34,23 @@ const TextAreaField = styled.textarea`
 
 class Field extends Component {
   render() {
-    const {label, name, type, handleChange} = this.props
+    const {label, name, type, handleChange, index} = this.props
 
     return (
       <Label>
         {label}
         {type === 'textarea' ? (
-          <TextAreaField rows={6} name={name} onChange={handleChange} />
+          <TextAreaField
+            rows={6}
+            name={name}
+            onChange={event => handleChange(event, label, index)}
+          />
         ) : (
-          <InputField type={type} name={name} onChange={handleChange} />
+          <InputField
+            type={type}
+            name={name}
+            onChange={event => handleChange(event, label, index)}
+          />
         )}
       </Label>
     )
