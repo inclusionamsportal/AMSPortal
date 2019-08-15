@@ -7,7 +7,8 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const forms = await Forms.findAll({
-      where: {isActive: 'true'}
+      where: {isActive: 'true'},
+      order: [['id', 'DESC']]
     })
     res.json(forms)
   } catch (err) {
@@ -15,15 +16,27 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//Display form by ID for Admins.
-router.get('/:id', async (req, res, next) => {
-  if (!req.Admin) {
-    res.send(404, 'You do not have access')
-  }
+// Display form for user to fill out
+router.get('/apply/:id', async (req, res, next) => {
   try {
     const id = req.params.id
     const foundForm = await Forms.findByPk(id)
     res.json(foundForm)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//Display form by ID for Admins.
+router.get('/:id', async (req, res, next) => {
+  if (!req.user) {
+    res.send(404, 'You do not have access')
+  }
+  try {
+    const forms = await Forms.findAll({
+      order: [['id', 'DESC']]
+    })
+    res.json(forms)
   } catch (err) {
     res.status(err)
     next(err)
@@ -31,11 +44,11 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  if (!req.Admin) {
+  if (!req.user) {
     res.send(404, 'You do not have access')
   }
   try {
-    await Forms.create({...req.body})
+    await Forms.create(req.body)
     res.status(201).send('Form added.')
   } catch (err) {
     next(err)
@@ -43,10 +56,9 @@ router.post('/', async (req, res, next) => {
 })
 
 router.put('/:id', async (req, res, next) => {
-  if (!req.Admin) {
+  if (!req.user) {
     res.send(404, 'You do not have access')
   }
-
   try {
     const id = req.params.id
     const form = await Forms.findByPk(id)
@@ -58,7 +70,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 router.delete('/:id', async (req, res, next) => {
-  if (!req.Admin) {
+  if (!req.user) {
     res.send(404, 'You do not have access')
   }
   try {
