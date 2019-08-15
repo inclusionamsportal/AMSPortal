@@ -10,10 +10,25 @@ export const brandyRose = '#bb7c75'
 export const green = '#44a23f'
 export const greenHover = '#77a274'
 export const black = '#333'
+export const yellow = '#e4bb32'
 
 export const SectionHeading = styled.h2`
   border-bottom: 1px solid ${whiteSmoke};
   margin-bottom: 0;
   margin-top: 0.6rem;
   padding-bottom: 0.2rem;
+`
+
+export const Button = styled.button`
+  padding: 1rem;
+  border: 1px solid ${lightGray};
+  border-radius: 5px;
+  background-color: ${white};
+  color: ${black};
+  font-size: 1rem;
+
+  &:hover {
+    background-color: ${greenHover};
+    border-color: ${greenHover};
+  }
 `
