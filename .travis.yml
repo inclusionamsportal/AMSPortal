@@ -14,14 +14,14 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "amsportal-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: applicationportal
+  api_key:
+    secure: lx8AGTTd/AloLPziiPnpKbm3kdE0v06fiMkA0ADaqzn4LF/ZPX1DtJsGKSoBS4vSIshAcIbZV5lOO3CzQ41GxLfo9exId9L07Ba6S1ipYpUJgCKJUcTa0HzMI8uD7ocCR3kKuMJnBTyPITATtQE0keqLNiO9I0WVnb0Sy1vhNWsBytGmSeSNr9vRJYCuXoK2RVZVXgjYFkrJCWkvrZio0oN0vo5adoNWxr4ZpPvSwlKdaqdAK4kVEebhmJQ+xs5UCVEVrh4D8shQCFx5lN/njS5nGohqDV20qoYfXyYSmr07KEeteplc98xL1dCHLL4Uijd/1ooGUg7rlRRC7/N+6xJZe0x4MCpIFRp6CL8CX+VPHreAwsZkyqrusikN0WrR8ob9BXAD+XacQCqLRDHtre2qoyJl73CfRABkvhyTYgm83mkuLwotJdZBoseQWjB2jz8NolXgnNzyV7/pJEDIZekp8LifKTjo6bg8Bqdgk57sq7C9ScBh90fY7tYR4QQ5saAODCka+VYil3eMncFj667lH/TqUTxySolpsfavkqRQqv56u77ht/vay9nung5hA6xqBllZmhSNpA5YiNnXJQPVzo60vlRkcG12MY7bDJ6iPrgJ5R/vkyGHME5MNGOvy1r6XWAtb1dfLQix/KTOtDtVW0VoS+Zgj4ibEKPMJ8Q=
