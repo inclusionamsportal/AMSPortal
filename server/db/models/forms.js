@@ -20,7 +20,11 @@ const Forms = db.define('forms', {
   },
   deadline: {
     type: Sequelize.DATE,
+    default: new Date(Date.now() + 24 * 60 * 60 * 1000 * 30),
     allowNull: false
+  },
+  textBody: {
+    type: Sequelize.STRING
   }
 })
 
