@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import BuildPanel from './BuildPanel'
 import DraggableField from './DraggableField'
+import createForm from '../../api/forms/createForm'
 import {DragDropContext, Droppable} from 'react-beautiful-dnd'
+import {Redirect} from 'react-router-dom'
 import isRequiredField from '../../utils/isRequiredField'
 import reorderList from '../../utils/reorderList'
 import getType from '../../utils/getType'
@@ -84,7 +86,8 @@ class FormBuilder extends Component {
     fields: [...initialFieldsState],
     formTitle: 'Form Title',
     editedFieldIndex: 0,
-    showDeleteMessage: false
+    showDeleteMessage: false,
+    redirect: false
   }
 
   // Save index of field that is being edited.
@@ -122,11 +125,23 @@ class FormBuilder extends Component {
     })
   }
 
-  // !!! - TODO
   handleFormSave = () => {
-    const {fields, formTitle} = this.state
-    console.log(fields, formTitle)
-    console.log(`saved!`)
+    const {fields, formTitle, redirect} = this.state
+
+    const data = {
+      title: formTitle,
+      isActive: false,
+      textBody: fields
+    }
+
+    createForm('/', data)
+      .then(() => {
+        this.setState({
+          redirect: true
+        })
+      })
+      .catch(error => console.log(error))
+
     // make a POST request to the server to save form
     // when request is returned move to admin home page.
   }
@@ -275,7 +290,16 @@ class FormBuilder extends Component {
   }
 
   render() {
-    const {formTitle, editedFieldIndex, fields, showDeleteMessage} = this.state
+    const {
+      formTitle,
+      editedFieldIndex,
+      fields,
+      showDeleteMessage,
+      redirect
+    } = this.state
+    const {history} = this.props
+
+    if (redirect) return <Redirect to="/manage-forms" />
 
     return (
       <Container>
@@ -290,6 +314,7 @@ class FormBuilder extends Component {
             formTitle={formTitle}
             currentlyEditedField={fields[editedFieldIndex]}
             handleFormTypeChange={this.handleFormTypeChange}
+            history={history}
           />
           <FormContainer>
             <FormTitle>{formTitle}</FormTitle>

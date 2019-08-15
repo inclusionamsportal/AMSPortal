@@ -74,9 +74,13 @@ const BuildPanel = props => {
     handleFormTitleChange
   } = props
 
+  function handleExit() {
+    props.history.goBack()
+  }
+
   return (
     <Container>
-      <Exit>
+      <Exit onClick={handleExit}>
         <svg
           width="25px"
           height="25px"
