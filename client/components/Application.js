@@ -1,43 +1,10 @@
 import React, {Component} from 'react'
 import Field from './Field'
+import {Redirect} from 'react-router-dom'
 import styled from 'styled-components'
+import getForm from '../api/forms/getForm'
+import createApplication from '../api/applications/createApplication'
 import {white, green, greenHover, lightGray, black, red} from '../shared/styles'
-
-const mockInputFields = {
-  formTitle: 'Inclusion Application',
-  data: [
-    {
-      id: 'name',
-      label: 'Name',
-      name: 'applicantName',
-      type: 'text'
-    },
-    {
-      id: 'email',
-      label: 'Email',
-      name: 'applicantEmail',
-      type: 'email'
-    },
-    {
-      id: 'body',
-      label: 'Body',
-      name: 'applicantBody',
-      type: 'textarea'
-    },
-    {
-      id: 2,
-      label: 'Dude',
-      name: 'textarea2',
-      type: 'textarea'
-    },
-    {
-      id: 1,
-      label: 'Date',
-      name: 'date1',
-      type: 'date'
-    }
-  ]
-}
 
 const Container = styled.section`
   display: flex;
@@ -94,32 +61,39 @@ class Application extends Component {
     formTitle: '',
     data: [],
     fields: {},
-    error: false
+    error: false,
+    redirect: false
   }
 
-  // !!! TODO
   componentDidMount() {
-    // console.log(id)
-    // get the form with the associated id
-    // update state with the data
     const {id} = this.props.match.params
 
-    this.setState({
-      formTitle: mockInputFields.formTitle,
-      data: mockInputFields.data
-    })
+    getForm(`/apply/${id}`)
+      .then(response => {
+        const {data} = response
+
+        this.setState({
+          formTitle: data.title,
+          data: data.textBody
+        })
+      })
+      .catch(error => console.log(error))
   }
 
-  handleChange = event => {
+  handleChange = (event, label, index) => {
     const {fields} = this.state
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
+    const newFields = Array.from(fields)
 
-    fields[name] = value
+    const newValue = {
+      label,
+      value,
+      name
+    }
 
-    const newFields = Object.assign({}, fields)
-    newFields[name] = value
+    newFields[index] = newValue
 
     this.setState({
       fields: newFields
@@ -129,6 +103,7 @@ class Application extends Component {
   handleSubmit = event => {
     event.preventDefault()
     const {fields} = this.state
+    const {id} = this.props.match.params
 
     this.setState({
       error: false
@@ -139,7 +114,41 @@ class Application extends Component {
       return
     }
 
-    console.log(fields)
+    const data = {
+      applicantName: this.getApplicantInfo('applicantName'),
+      applicantEmail: this.getApplicantInfo('applicantEmail'),
+      applicationBody: fields,
+      status: 'UNDER REVIEW',
+      formId: id
+    }
+    createApplication(`/`, data)
+      .then(() => {
+        this.setState({
+          redirect: true
+        })
+      })
+      .catch(error => console.log(error))
+  }
+
+  getApplicantInfo = info => {
+    const {fields} = this.state
+
+    for (let i = 0; i < fields.length; i++) {
+      if (fields[i].name === info) return fields[i].value
+    }
+
+    return ''
+  }
+
+  getApplicantEmail = () => {
+    const {fields} = this.state
+    const NOT_FOUND = -1
+
+    for (let i = 0; i < fields.length; i++) {
+      if (fields[i].email === 'applicantEmail') return fields[i].email
+    }
+
+    return NOT_FOUND
   }
 
   handleError = () => {
@@ -161,7 +170,7 @@ class Application extends Component {
             label={field.label}
             key={field.id}
             name={field.name}
-            type="text"
+            type={field.type}
             handleChange={this.handleChange}
           />
         )
@@ -231,7 +240,9 @@ class Application extends Component {
   }
 
   render() {
-    const {formTitle, data, error} = this.state
+    const {formTitle, data, error, redirect} = this.state
+
+    if (redirect) return <Redirect to="/success" />
 
     return (
       <Container>
