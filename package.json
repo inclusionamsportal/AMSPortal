@@ -1,7 +1,7 @@
 {
   "name": "amsportal",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "An application management system.",
   "engines": {
     "node": ">= 7.0.0"
   },
@@ -33,8 +33,8 @@
       "git add"
     ]
   },
-  "author": "Fullstack Academy of Code",
-  "license": "MIT",
+  "author": "Inclusion Yellow Team",
+  "license": "",
   "dependencies": {
     "axios": "^0.19.0",
     "compression": "^1.7.3",
