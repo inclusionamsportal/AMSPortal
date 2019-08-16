@@ -28,5 +28,15 @@ describe('Admins routes', () => {
       expect(res.body).to.be.an('array')
       expect(res.body[0].username).to.be.equal(cody)
     })
+
+    it('GET /api/admins/:id', async () => {
+      const res = await request(app)
+        .get('/api/admins/1')
+        .expect(200)
+      // console.log('hm',typeof res.body)
+      expect(res.body).to.be.an('object')
+      // expect(res.body[0].username).to.be.equal(cody)
+    })
+
   }) // end describe('/api/users')
 }) // end describe('User routes')
