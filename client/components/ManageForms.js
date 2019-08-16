@@ -3,16 +3,12 @@ import {connect} from 'react-redux'
 import Form from './Form'
 import {Link} from 'react-router-dom'
 import getForms from '../api/forms/getForms'
+import {Container} from '../shared/styles'
 import styled from 'styled-components'
-
-const Container = styled.section`
-  margin: 0 auto;
-  width: 90%;
-`
 
 const FormContainer = styled.section`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-flow: row wrap;
 `
 

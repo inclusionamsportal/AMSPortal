@@ -159,7 +159,6 @@ class Application extends Component {
   }
 
   renderFormView = (field, index) => {
-    console.log('hitting renderformview', 'field', field)
     let view
 
     switch (field.type) {

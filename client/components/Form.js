@@ -3,13 +3,22 @@ import {Link} from 'react-router-dom'
 import updateForm from '../api/forms/updateForm'
 import deleteForm from '../api/forms/deleteForm'
 import styled from 'styled-components'
-import {lightGray, red, white, green} from '../shared/styles'
-import {getReadableDate} from '../utils/date'
+import {lightGray, red, white, green, black} from '../shared/styles'
+import {parseDate} from '../utils/date'
 import FormUpdateTools from './FormUpdateTools'
 
 const Container = styled.div`
   margin-bottom: 2rem;
   flex-basis: 30%;
+  margin-right: 2rem;
+
+  @media (max-width: 1040px) {
+    flex-basis: 45%;
+  }
+
+  @media (max-width: 800px) {
+    flex-basis: 60%;
+  }
 `
 
 const FormWrapper = styled.div`
@@ -20,12 +29,25 @@ const FormWrapper = styled.div`
   padding: 1rem 2rem;
   box-shadow: 0 10px 6px -6px ${lightGray};
 
-  ${({updated}) =>
-    updated &&
-    `
-    border: 2px solid ${green};
-  `} & h2 {
+  & h2 {
     margin-top: 0;
+  }
+`
+
+const ApplyButton = styled(Link)`
+  display: flex;
+  padding: 0.5rem 1rem;
+  color: ${black};
+  border: 1px solid ${black};
+  border-radius: 5px;
+  margin-bottom: 0.4rem;
+  font-size: 1rem;
+  align-self: flex-start;
+
+  &:hover {
+    background-color: ${green};
+    color: ${white};
+    border-color: ${green};
   }
 `
 
@@ -45,16 +67,12 @@ const DeleteButton = styled.button`
   }
 `
 
-const ApplyText = styled.span`
-  display: inline-block;
-  margin-top: 1rem;
-  align-self: flex-start;
+const Deadline = styled.div`
+  margin: 0.4rem 0 0.8rem 0;
 `
 
-const UpdatedText = styled.p`
-  text-align: center;
+const Title = styled.span`
   font-weight: 600;
-  color: ${green};
 `
 
 const Form = ({
@@ -68,7 +86,7 @@ const Form = ({
   handleDeleteForm,
   handleFormUpdate
 }) => {
-  const date = getReadableDate(deadline)
+  const dateObj = parseDate(deadline)
 
   function handleUpdate(data) {
     updateForm(`/${id}`, data)
@@ -98,25 +116,36 @@ const Form = ({
           </DeleteButton>
           <FormWrapper key={id} updated={updated}>
             <h2>{title}</h2>
-            <span>Deadline: </span>
-            <span>{date}</span>
+            <div>
+              <Title>Deadline: </Title>
+              <Deadline>
+                <span>{dateObj.month}</span>
+                <span>{` ${dateObj.date}`}</span>
+                <span>{`, ${dateObj.year}`}</span>
+              </Deadline>
+            </div>
             <FormUpdateTools
               handleUpdate={handleUpdate}
               deadline={deadline}
               isActive={isActive}
             />
           </FormWrapper>
-          {updated && <UpdatedText>Updated!</UpdatedText>}
         </Container>
       ) : (
-        <FormWrapper key={id}>
-          <h2>{title}</h2>
-          <span>Deadline: </span>
-          <span>{date}</span>
-          <Link to={`/application/${id}`}>
-            <ApplyText>Apply</ApplyText>
-          </Link>
-        </FormWrapper>
+        <Container>
+          <FormWrapper key={id}>
+            <h2>{title}</h2>
+            <div>
+              <Title>Deadline: </Title>
+              <Deadline>
+                <span>{dateObj.month}</span>
+                <span>{` ${dateObj.date}`}</span>
+                <span>{`, ${dateObj.year}`}</span>
+              </Deadline>
+            </div>
+            <ApplyButton to={`/application/${id}`}>Apply</ApplyButton>
+          </FormWrapper>
+        </Container>
       )}
     </React.Fragment>
   )
