@@ -1,5 +1,18 @@
-// !!! ~ Note - date display the day before whichever date was chosen.
-const getReadableDate = date => new Date(date).toDateString()
+const monthNames = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
+]
+const week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 const formatDate = date => {
   const d = new Date(date)
@@ -15,4 +28,22 @@ const formatDate = date => {
   return formattedDate
 }
 
-export {getReadableDate, formatDate}
+const parseDate = date => {
+  const d = new Date(date)
+  const dateOfMonth = d.getUTCDate()
+  const dayIndex = d.getUTCDay()
+  const monthIndex = d.getUTCMonth()
+  const year = d.getUTCFullYear()
+
+  const month = monthNames[monthIndex]
+  const day = week[dayIndex]
+
+  return {
+    month,
+    day,
+    date: dateOfMonth,
+    year
+  }
+}
+
+export {formatDate, parseDate}
