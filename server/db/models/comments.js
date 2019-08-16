@@ -5,8 +5,7 @@ const Comments = db.define('comments', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
-    unique: true
+    autoIncrement: true
   },
   commentBody: {
     type: Sequelize.TEXT,
@@ -24,8 +23,7 @@ const Comments = db.define('comments', {
   },
   applicantName: {
     type: Sequelize.STRING,
-    allowNull: false,
-    unique: true
+    allowNull: false
   }
 })
 

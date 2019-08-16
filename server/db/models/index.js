@@ -22,13 +22,6 @@ Comments.belongsTo(
 
   {foreignKey: 'adminId', targetKey: 'id'}
 )
-// Comments.belongsTo(
-//   Admins,
-//   {constraints: false},
-//   {foreignKey: 'adminName', targetKey: 'username'}
-// )
-
-// Comments.findAll({model: [Admins]})
 
 Applications.belongsTo(
   Comments,
