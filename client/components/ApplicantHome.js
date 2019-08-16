@@ -2,14 +2,11 @@ import React, {Component} from 'react'
 import getForms from '../api/forms/getForms'
 import styled from 'styled-components'
 import Form from './Form'
-
-const Container = styled.section`
-  margin: 0 2rem;
-`
+import {Container} from '../shared/styles'
 
 const ApplicationContainer = styled.section`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-flow: row wrap;
 `
 

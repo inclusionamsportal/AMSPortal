@@ -1,40 +1,86 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
-import {lightGray, white, green, greenHover} from '../shared/styles'
+import {white, green} from '../shared/styles'
 import {formatDate} from '../utils/date'
 
-const Tools = styled.div`
+const SetDeadline = styled.div`
   display: flex;
-  margin-top: 1rem;
   flex-direction: column;
-`
 
-const Button = styled.button`
-  width: 60%;
-  padding: 1rem;
-  border: 1px solid ${green};
-  border-radius: 5px;
-  margin-top: 1rem;
-  background-color: ${green};
-  color: ${white};
-  font-size: 1rem;
-
-  &:hover {
-    background-color: ${greenHover};
-    border-color: ${greenHover};
-  }
-
-  &:disabled {
-    border: 1px solid ${lightGray};
-    background-color: ${lightGray};
-    color: gray;
+  & label {
+    font-weight: 600;
   }
 `
 
-const Field = styled.label`
+const SwitchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.8rem;
+
+  & label {
+    font-weight: 600;
+  }
+`
+
+const Switch = styled.label`
   display: flex;
   flex-direction: column;
   margin: 0.5rem 0;
+
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+
+  & input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  & span {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+
+  & span:before {
+    position: absolute;
+    content: '';
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: ${white};
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+
+  & input:checked + span {
+    background-color: ${green};
+  }
+
+  & input:focus + span {
+    box-shadow: 0 0 1px ${green};
+  }
+
+  & input:checked + span:before {
+    transform: translateX(26px);
+  }
+
+  & span {
+    border-radius: 34px;
+  }
+
+  & span:before {
+    border-radius: 50%;
+  }
 `
 
 class FormUpdateTools extends Component {
@@ -55,13 +101,19 @@ class FormUpdateTools extends Component {
   }
 
   handleChange = event => {
+    const {handleUpdate} = this.props
     const target = event.target
     const value = target.type === 'checkbox' ? target.checked : target.value
     const name = target.name
 
-    this.setState({
-      [name]: value
-    })
+    this.setState(
+      {
+        [name]: value
+      },
+      () => {
+        handleUpdate(this.state)
+      }
+    )
   }
 
   handleClick = () => {
@@ -79,36 +131,34 @@ class FormUpdateTools extends Component {
 
   render() {
     const {isActive, deadline} = this.state
-    const formActivationText = isActive ? 'Deactivate Form' : 'Activate Form'
 
     return (
-      <Tools>
-        <Field>
-          Set Deadline:<input
+      <React.Fragment>
+        <SetDeadline>
+          <label htmlFor="set-deadline">Set Deadline</label>
+          <input
             type="date"
             name="deadline"
+            id="set-deadline"
             value={deadline}
             onChange={this.handleChange}
           />
-        </Field>
+        </SetDeadline>
 
-        <Field>
-          {formActivationText}
-          <input
-            type="checkbox"
-            name="isActive"
-            onChange={this.handleChange}
-            checked={isActive}
-          />
-        </Field>
-        <Button
-          type="button"
-          onClick={this.handleClick}
-          disabled={!this.wasUpdated()}
-        >
-          Update Form
-        </Button>
-      </Tools>
+        <SwitchContainer>
+          <label htmlFor="is-active">Active</label>
+          <Switch>
+            <input
+              type="checkbox"
+              name="isActive"
+              id="is-active"
+              onChange={this.handleChange}
+              checked={isActive}
+            />
+            <span />
+          </Switch>
+        </SwitchContainer>
+      </React.Fragment>
     )
   }
 }

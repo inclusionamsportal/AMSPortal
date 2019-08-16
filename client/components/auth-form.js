@@ -3,10 +3,13 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 import styled from 'styled-components'
-import {Button} from '../shared/styles'
+import {Button, black} from '../shared/styles'
+import LoginSVG from './svg/LoginSVG'
 
 const Container = styled.div`
-  margin: 0 2rem;
+  margin: 0 4rem;
+  display: flex;
+  justify-content: center;
 `
 
 const Field = styled.div`
@@ -16,8 +19,19 @@ const Field = styled.div`
 const Input = styled.input`
   display: block;
   margin-top: 0.4rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
+  border: 1px solid ${black};
+  border-radius: 5px;
+  height: 40px;
+  padding-left: 5px;
 `
+
+const SVGContainer = styled.div`
+  width: 42%;
+  margin-left: 1.4rem;
+`
+
+const FormContainer = styled.div``
 
 /**
  * COMPONENT
@@ -27,25 +41,30 @@ const AuthForm = props => {
 
   return (
     <Container>
-      <form onSubmit={handleSubmit} name={name}>
-        <Field>
-          <label htmlFor="email">
-            <small>Username</small>
-          </label>
-          <Input name="email" type="text" />
-        </Field>
-        <Field>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <Input name="password" type="password" />
-        </Field>
-        <div>
-          <Button type="submit">{displayName}</Button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      {/* <a href="/auth/google">{displayName} with Google</a> */}
+      <FormContainer>
+        <h1>{displayName}</h1>
+        <form onSubmit={handleSubmit} name={name}>
+          <Field>
+            <label htmlFor="email">
+              <small>Username</small>
+            </label>
+            <Input name="email" type="text" />
+          </Field>
+          <Field>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <Input name="password" type="password" />
+          </Field>
+          <div>
+            <Button type="submit">{displayName}</Button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
+      </FormContainer>
+      <SVGContainer>
+        <LoginSVG />
+      </SVGContainer>
     </Container>
   )
 }

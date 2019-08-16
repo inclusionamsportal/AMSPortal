@@ -3,14 +3,29 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import styled from 'styled-components'
+import {Container, black} from '../shared/styles'
+
+const Nav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+`
+
+const Logo = styled(Link)`
+  color: ${black};
+  font-size: 1.6rem;
+  display: inline-block;
+  margin-left: 0;
+`
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>AMS</h1>
-    <nav>
+  <Container>
+    <Nav>
+      <Logo to="/">AMS Portal</Logo>
       {isLoggedIn ? (
         <div>
-          {/* The navbar will show these links after you log in */}
           <Link to="/review">Review Applicants</Link>
           <Link to="/manage-forms">Manage Forms</Link>
           <Link to="/create-form">Create Form</Link>
@@ -25,9 +40,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/signup">Sign Up</Link>
         </div>
       )}
-    </nav>
-    <hr />
-  </div>
+    </Nav>
+  </Container>
 )
 
 /**
