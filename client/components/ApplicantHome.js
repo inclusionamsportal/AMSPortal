@@ -32,6 +32,10 @@ class ApplicantHome extends Component {
 
   render() {
     const {forms} = this.state
+    const emptyMessage =
+      forms.length === 0
+        ? 'There are no applications available at the moment.'
+        : ''
 
     const listOfForms = forms.map(form => {
       const {id, title, deadline, isActive} = form
@@ -49,7 +53,8 @@ class ApplicantHome extends Component {
 
     return (
       <Container>
-        <h1>Open Applications</h1>
+        <h1>Applications</h1>
+        <p>{emptyMessage}</p>
         <ApplicationContainer>{listOfForms}</ApplicationContainer>
       </Container>
     )

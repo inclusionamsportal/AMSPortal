@@ -24,6 +24,11 @@ Applications.belongsTo(Comments, {
   targetKey: 'applicantName'
 })
 
+Comments.belongsTo(Applications, {
+  foreignKey: 'applicantName',
+  targetKey: 'applicantName'
+})
+
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'

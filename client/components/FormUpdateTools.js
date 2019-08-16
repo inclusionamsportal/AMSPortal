@@ -65,16 +65,16 @@ class FormUpdateTools extends Component {
   }
 
   handleClick = () => {
-    const {handleFormUpdate} = this.props
-    handleFormUpdate(this.state)
+    const {handleUpdate} = this.props
+    handleUpdate(this.state)
   }
 
   wasUpdated = () => {
     const {isActive, deadline} = this.props
     const {isActive: isActiveState, deadline: deadlineState} = this.state
-    const parsedDeadline = formatDate(deadline)
+    const formattedDeadline = formatDate(deadline)
 
-    return isActive !== isActiveState || parsedDeadline !== deadlineState
+    return isActive !== isActiveState || formattedDeadline !== deadlineState
   }
 
   render() {

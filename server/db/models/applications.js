@@ -23,7 +23,7 @@ const Applications = db.define('applications', {
     type: Sequelize.STRING
   },
   applicationBody: {
-    type: Sequelize.TEXT
+    type: Sequelize.JSON
   }
 })
 

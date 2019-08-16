@@ -3,21 +3,28 @@ import {Link} from 'react-router-dom'
 import updateForm from '../api/forms/updateForm'
 import deleteForm from '../api/forms/deleteForm'
 import styled from 'styled-components'
-import {lightGray, red, white} from '../shared/styles'
+import {lightGray, red, white, green} from '../shared/styles'
 import {getReadableDate} from '../utils/date'
 import FormUpdateTools from './FormUpdateTools'
+
+const Container = styled.div`
+  margin-bottom: 2rem;
+  flex-basis: 30%;
+`
 
 const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex-basis: 30%;
   border: 1px solid ${lightGray};
   border-radius: 5px;
   padding: 1rem 2rem;
-  margin-bottom: 2rem;
   box-shadow: 0 10px 6px -6px ${lightGray};
 
-  & h2 {
+  ${({updated}) =>
+    updated &&
+    `
+    border: 2px solid ${green};
+  `} & h2 {
     margin-top: 0;
   }
 `
@@ -44,39 +51,63 @@ const ApplyText = styled.span`
   align-self: flex-start;
 `
 
-const Form = ({id, title, deadline, isAdmin, isActive}) => {
+const UpdatedText = styled.p`
+  text-align: center;
+  font-weight: 600;
+  color: ${green};
+`
+
+const Form = ({
+  id,
+  title,
+  deadline,
+  isAdmin,
+  isActive,
+  index,
+  updated,
+  handleDeleteForm,
+  handleFormUpdate
+}) => {
   const date = getReadableDate(deadline)
 
-  // !!! TODO
-  function handleFormUpdate(data) {
-    console.log('Updated:', id)
+  function handleUpdate(data) {
     updateForm(`/${id}`, data)
+      .then(response => {
+        const {data: updatedData} = response
+        handleFormUpdate(updatedData, index)
+      })
+      .catch(error => console.log(error))
   }
 
-  // !!! TODO
   function handleDelete() {
-    console.log('Noooo, why would you delete me? :( ', id)
     deleteForm(`/${id}`)
+      .then(() => {
+        handleDeleteForm(index)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   return (
     <React.Fragment>
       {isAdmin ? (
-        <div>
+        <Container>
           <DeleteButton type="button" onClick={handleDelete}>
             Delete
           </DeleteButton>
-          <FormWrapper key={id}>
+          <FormWrapper key={id} updated={updated}>
             <h2>{title}</h2>
             <span>Deadline: </span>
             <span>{date}</span>
             <FormUpdateTools
-              handleFormUpdate={handleFormUpdate}
+              handleUpdate={handleUpdate}
               deadline={deadline}
               isActive={isActive}
             />
           </FormWrapper>
-        </div>
+          {updated && <UpdatedText>Updated!</UpdatedText>}
+        </Container>
       ) : (
         <FormWrapper key={id}>
           <h2>{title}</h2>
