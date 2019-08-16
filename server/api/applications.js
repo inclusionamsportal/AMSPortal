@@ -32,7 +32,6 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  console.log('hitting post route')
   try {
     const fullName = req.body.applicantName
     const email = req.body.applicantEmail
@@ -45,11 +44,7 @@ router.post('/', async (req, res, next) => {
       status: 'UNDER REVIEW',
       formId: id
     })
-    res
-
-      .json(newApplication)
-      .status(201)
-      .send('Application created.')
+    res.json(newApplication)
   } catch (err) {
     next(err)
   }
