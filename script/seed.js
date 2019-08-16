@@ -17,18 +17,21 @@ async function seed() {
       applicantName: 'Philip J. Fry',
       commentBody: ' This person is highly qualified.',
 
-      adminId: 1
+      adminId: 1,
+      adminName: 'nibbler'
     },
     {
       applicantName: 'Turanga Leela',
       commentBody: 'This person is very impressive',
 
-      adminId: 1
+      adminId: 1,
+      adminName: 'nibbler'
     },
     {
       applicantName: 'Doctor Zoidberg',
       commentBody: "I'm not too sure about this person.",
-      adminId: 1
+      adminId: 1,
+      adminName: 'nibbler'
     }
   ]
 
@@ -61,7 +64,15 @@ async function seed() {
 
       status: 'UNDER REVIEW',
       applicantEmail: 'leela@gmail.com',
-      applicationBody: 'I am applying because I love programming.',
+      applicationBody: [
+        {label: 'Name', value: 'Turanga Leela', name: 'applicantName'},
+        {label: 'Email', value: 'leela@gmail.com', name: 'applicantEmail'},
+        {
+          label: 'Bio',
+          value: 'I am applying because I love programming',
+          name: 'applicationBody'
+        }
+      ],
       formId: 1
     },
     {
@@ -69,7 +80,15 @@ async function seed() {
 
       status: 'REJECTED',
       applicantEmail: 'zoid@gmail.com',
-      applicationBody: "I'm applying because I love algorithms.",
+      applicationBody: [
+        {label: 'Name', value: 'Zoidberg', name: 'applicantName'},
+        {label: 'Email', value: 'zoid@gmail.com', name: 'applicantEmail'},
+        {
+          label: 'Bio',
+          value: "I'm applying because I love algos",
+          name: 'applicationBody'
+        }
+      ],
       formId: 1
     },
 
@@ -78,7 +97,15 @@ async function seed() {
 
       status: 'ACCEPTED',
       applicantEmail: 'fry@gmail.com',
-      applicationBody: "I'm applying because of the awesome instructors.",
+      applicationBody: [
+        {label: 'Name', value: 'Philip J. Fry', name: 'applicantName'},
+        {label: 'Email', value: 'fry@gmail.com', name: 'applicantEmail'},
+        {
+          label: 'Bio',
+          value: "I'm applying because of the awesome instructors.",
+          name: 'applicationBody'
+        }
+      ],
       formId: 1
     }
   ]

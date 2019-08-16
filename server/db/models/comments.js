@@ -18,6 +18,10 @@ const Comments = db.define('comments', {
     type: Sequelize.INTEGER,
     allowNull: false
   },
+  adminName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   applicantName: {
     type: Sequelize.STRING,
     allowNull: false,

@@ -40,8 +40,9 @@ router.get('/:applicantName', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
+  console.log(req.body, ' HERE WE   GOOO')
   try {
-    const newComment = await Comments.create(req.body)
+    const newComment = await Comments.create({...req.body})
     res.status(201).send(newComment)
   } catch (err) {
     next(err)
