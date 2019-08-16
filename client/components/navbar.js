@@ -23,7 +23,7 @@ const Logo = styled(Link)`
 const Navbar = ({handleClick, isLoggedIn}) => (
   <Container>
     <Nav>
-      <Logo to="/">AMS</Logo>
+      <Logo to="/">AMS Portal</Logo>
       {isLoggedIn ? (
         <div>
           <Link to="/review">Review Applicants</Link>
