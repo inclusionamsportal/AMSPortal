@@ -17,8 +17,11 @@ Applications.belongsTo(Forms, {
 })
 
 Admins.hasMany(Comments)
-Comments.belongsTo(Admins, {foreignKey: 'adminId', targetKey: 'id'})
+Comments.belongsTo(
+  Admins,
 
+  {foreignKey: 'adminId', targetKey: 'id'}
+)
 
 Applications.belongsTo(
   Comments,
@@ -28,7 +31,6 @@ Applications.belongsTo(
     targetKey: 'applicantName'
   }
 )
-
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
