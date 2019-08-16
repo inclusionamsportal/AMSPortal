@@ -20,7 +20,7 @@ const Input = styled.input`
   display: block;
   margin-top: 0.4rem;
   font-size: 1.2rem;
-  border: 1px solid ${black}
+  border: 1px solid ${black};
   border-radius: 5px;
   height: 40px;
   padding-left: 5px;
