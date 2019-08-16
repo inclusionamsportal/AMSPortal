@@ -16,6 +16,7 @@ async function seed() {
     {
       applicantName: 'Philip J. Fry',
       commentBody: ' This person is highly qualified.',
+
       adminId: 1
     },
     {
@@ -35,12 +36,22 @@ async function seed() {
     {
       title: 'Inclusion application',
       isActive: true,
-      deadline: '09/20/2019'
+      deadline: '09/20/2019',
+      textBody: [
+        {id: 1, label: 'Name', name: 'applicantName', type: 'text'},
+        {id: 2, label: 'Email', name: 'applicantEmail', type: 'email'},
+        {id: 3, label: 'Bio', name: 'applicationBody', type: 'textarea'}
+      ]
     },
     {
       title: 'Another application',
       isActive: false,
-      deadline: '09/21/2019'
+      deadline: '09/21/2019',
+      textBody: [
+        {id: 1, label: 'Name', name: 'applicantName', type: 'text'},
+        {id: 2, label: 'Email', name: 'applicantEmail', type: 'email'},
+        {id: 3, label: 'Bio', name: 'applicationBody', type: 'textarea'}
+      ]
     }
   ]
 

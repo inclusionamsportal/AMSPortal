@@ -158,10 +158,23 @@ class Application extends Component {
   }
 
   renderFormView = (field, index) => {
+    console.log('hitting renderformview')
     let view
 
     switch (field.type) {
       case 'text':
+        view = (
+          <Field
+            draggableId={field.id}
+            index={index}
+            label={field.label}
+            key={field.id}
+            name={field.name}
+            type="text"
+            handleChange={this.handleChange}
+          />
+        )
+        break
       case 'email':
         view = (
           <Field
