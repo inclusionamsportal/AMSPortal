@@ -113,16 +113,15 @@ class Application extends Component {
       this.handleError()
       return
     }
-    console.log('THIS IS ID', id)
+
     const data = {
       applicantName: this.getApplicantInfo('applicantName'),
       applicantEmail: this.getApplicantInfo('applicantEmail'),
-      applicationBody: this.getApplicantInfo('applicationBody'),
+      applicationBody: fields,
       status: 'UNDER REVIEW',
       formId: parseInt(id)
     }
 
-    console.log('DATA', data)
     createApplication(`/`, data)
       .then(() => {
         this.setState({
@@ -133,7 +132,6 @@ class Application extends Component {
   }
 
   getApplicantInfo = info => {
-    console.log('get application', info)
     const {fields} = this.state
 
     for (let i = 0; i < fields.length; i++) {
